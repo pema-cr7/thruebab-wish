@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blessed Rainy Day — Wish</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Tibetan&display=swap');
+    :root{--bg1:#0f172a;--bg2:#0ea5a6;--glass:rgba(255,255,255,0.06)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--bg1),#06202a);color:white}
+    .card{width:min(820px,96vw);border-radius:14px;padding:28px;backdrop-filter:blur(6px);background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));box-shadow:0 10px 30px rgba(2,6,23,0.6);display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .hero{padding:12px 18px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.05));display:flex;flex-direction:column;gap:14px}
+    h1{margin:0;font-size:28px;letter-spacing:1px}
+    p.lead{margin:0;font-size:18px;opacity:0.95}
+    .wishbox{margin-top:6px;padding:18px;border-radius:10px;background:linear-gradient(180deg,rgba(14,165,166,0.12),rgba(14,165,166,0.06));text-align:center}
+    .wishbox h2{margin:6px 0;font-size:32px}
+    .wishbox h3{margin:0;font-size:18px;opacity:0.9;font-family:'Noto Serif Tibetan',serif}
+    .controls{display:flex;flex-direction:column;gap:10px}
+    button{cursor:pointer;border:0;padding:10px 12px;border-radius:8px;font-weight:600}
+    .btn-primary{background:#06b6d4;color:#042a2a}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);color:inherit}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .right{padding:6px 10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.05));display:flex;flex-direction:column;align-items:stretch}
+    label{font-size:13px;opacity:0.85}
+    textarea{width:100%;height:140px;border-radius:8px;padding:12px;background:transparent;border:1px dashed rgba(255,255,255,0.06);color:inherit}
+    .small{font-size:13px;opacity:0.8}
+    footer{grid-column:1/-1;text-align:center;margin-top:10px;font-size:12px;opacity:0.7}
+    @media (max-width:820px){.card{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="hero">
+      <h1>Send a Blessed Rainy Day wish — quick share</h1>
+      <p class="lead">One-click copy & share. Use WhatsApp, Telegram, Email or download as image to post on socials.</p>
+
+      <div class="wishbox" id="preview">
+        <h2 id="line1">HAPPY BLESSED RAINY DAY</h2>
+        <h3 id="line2">THRUEBAB NIM LU TASHI DELEK</h3>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" id="copyBtn">Copy message</button>
+        <button class="btn-ghost" id="waBtn">Share on WhatsApp</button>
+        <button class="btn-ghost" id="tgBtn">Share on Telegram</button>
+        <button class="btn-ghost" id="mailBtn">Share by Email</button>
+        <button class="btn-primary" id="downloadBtn">Download as image</button>
+      </div>
+
+      <p class="small">Tip: Edit the message on the right panel to personalize — the preview updates live.</p>
+    </div>
+
+    <aside class="right">
+      <label for="txt1">Headline (big)</label>
+      <input id="txt1" value="HAPPY BLESSED RAINY DAY" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit">
+
+      <label for="txt2" style="margin-top:8px">Subtext (small)</label>
+      <input id="txt2" value="THRUEBAB NIM LU TASHI DELEK" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;font-family:'Noto Serif Tibetan',serif">
+
+      <label style="margin-top:8px">Full message (for sharing)</label>
+      <textarea id="fullMsg">HAPPY BLESSED RAINY DAY
+
+THRUEBAB NIM LU TASHI DELEK
+
+Wishing you cleansing, peace and good vibes on this special day.</textarea>
+
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn-primary" id="applyBtn">Apply to preview</button>
+        <button class="btn-ghost" id="resetBtn">Reset</button>
+      </div>
+
+      <div style="margin-top:auto;padding-top:10px;border-top:1px solid rgba(255,255,255,0.02)">
+        <p class="small">How to use:</p>
+        <ol style="font-size:13px;opacity:0.85;padding-left:18px;margin:6px 0">
+          <li>Customize text on the right and hit <strong>Apply to preview</strong>.</li>
+          <li>Click a share button to open WhatsApp/Telegram or copy the message to clipboard.</li>
+          <li>Or click <strong>Download as image</strong> to save a PNG you can post anywhere.</li>
+        </ol>
+      </div>
+    </aside>
+
+    <footer>Made for Thimphu vibes • Edit, share, celebrate.</footer>
+  </div>
+
+<script>
+  const txt1 = document.getElementById('txt1');
+  const txt2 = document.getElementById('txt2');
+  const fullMsg = document.getElementById('fullMsg');
+  const line1 = document.getElementById('line1');
+  const line2 = document.getElementById('line2');
+  const applyBtn = document.getElementById('applyBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const waBtn = document.getElementById('waBtn');
+  const tgBtn = document.getElementById('tgBtn');
+  const mailBtn = document.getElementById('mailBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  function applyPreview(){
+    line1.textContent = txt1.value || '';
+    line2.textContent = txt2.value || '';
+    fullMsg.value = `${txt1.value}\n\n${txt2.value}\n\nWishing you cleansing, peace and good vibes on this special day.`
+  }
+  applyBtn.addEventListener('click',applyPreview);
+
+  resetBtn.addEventListener('click',()=>{
+    txt1.value = 'HAPPY BLESSED RAINY DAY';
+    txt2.value = 'THRUEBAB NIM LU TASHI DELEK';
+    fullMsg.value = 'HAPPY BLESSED RAINY DAY\n\nTHRUEBAB NIM LU TASHI DELEK\n\nWishing you cleansing, peace and good vibes on this special day.';
+    applyPreview();
+  })
+
+  copyBtn.addEventListener('click',async ()=>{
+    try{
+      await navigator.clipboard.writeText(fullMsg.value);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(()=>copyBtn.textContent='Copy message',1500);
+    }catch(e){alert('Clipboard not available. Select and copy manually.')}
+  })
+
+  waBtn.addEventListener('click',()=>{
+    const text = encodeURIComponent(fullMsg.value);
+    const url = `https://wa.me/?text=${text}`; // opens WhatsApp Web or app
+    window.open(url,'_blank');
+  })
+
+  tgBtn.addEventListener('click',()=>{
+    const text = encodeURIComponent(fullMsg.value);
+    const url = `https://t.me/share/url?url=&text=${text}`;
+    window.open(url,'_blank');
+  })
+
+  mailBtn.addEventListener('click',()=>{
+    const subject = encodeURIComponent('Blessed Rainy Day wishes');
+    const body = encodeURIComponent(fullMsg.value + '\n\n— Sent from my custom wish page');
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  })
+
+  // Download as PNG: draw a canvas with the current preview
+  downloadBtn.addEventListener('click',()=>{
+    const w = 1200, h = 630;
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+
+    // background gradient
+    const grad = ctx.createLinearGradient(0,0,0,h);
+    grad.addColorStop(0,'#0f172a');
+    grad.addColorStop(1,'#06202a');
+    ctx.fillStyle = grad; ctx.fillRect(0,0,w,h);
+
+    // subtle raindrops pattern
+    for(let i=0;i<120;i++){
+      const x = Math.random()*w; const y = Math.random()*h; const r = 1+Math.random()*3;
+      ctx.fillStyle = 'rgba(255,255,255,0.03)'; ctx.beginPath(); ctx.ellipse(x,y,r,r*1.6,0,0,2*Math.PI); ctx.fill();
+    }
+
+    // text
+    ctx.textAlign='center';
+    ctx.fillStyle='white';
+    ctx.font = 'bold 56px Arial';
+    ctx.fillText(line1.textContent, w/2, h/2 - 20);
+    ctx.font = '500 28px \"Noto Serif Tibetan\"';
+    ctx.fillText(line2.textContent, w/2, h/2 + 30);
+
+    const link = document.createElement('a');
+    link.download = 'blessed-rainy-day.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  })
+
+  // initialize
+  applyPreview();
+</script>
+</body>
+</html>
